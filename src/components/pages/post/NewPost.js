@@ -25,6 +25,7 @@ const NewPost = ( { user, setPost, realtime }) => {
     const fileImageRef = useRef()
     const inputYoutubeRef = useRef()
     const { socket } = useContext(IoContext)
+    const [loading, setLoading] = useState(false)
 
     const handleText = e =>{
         setText(e.target.value)
@@ -47,6 +48,7 @@ const NewPost = ( { user, setPost, realtime }) => {
         handleBtnVideo()
     }
     const handleNewPost = async () => {
+        setLoading(true)
         let formData = new FormData()
         if (image)
             image.map(value => 
@@ -66,8 +68,10 @@ const NewPost = ( { user, setPost, realtime }) => {
                     setImage(null)
                     setInputYoutube('')
                     setLinkYoutube(null)
+                    setLoading(false)
                     resolve()
                 }else{
+                    setLoading(false)
                     reject()
                 }
             })
@@ -236,9 +240,9 @@ const NewPost = ( { user, setPost, realtime }) => {
             </Modal.Body>
             <Modal.Footer className='bg'>
                 <button 
-                    className={(text || image || linkYoutube) ? 'btn btn-primary w-100' : 'btn btn-secondary w-100' }
+                    className={(text || image || linkYoutube) && !loading ? 'btn btn-primary w-100' : 'btn btn-secondary w-100' }
                     onClick={handleNewPost}
-                    disabled={(text || image || linkYoutube) ? false : true}
+                    disabled={(text || image || linkYoutube) && !loading ? false : true}
                 >Post</button>
             </Modal.Footer>
         </Modal>
