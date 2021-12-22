@@ -65,20 +65,38 @@ function PostEdit ({show, handleEdit, data, setData}){
         formData.append('id', data._id)
         formData.append('text', text)
         formData.append('video', linkYoutube)
-        api.post('/post/edit', formData )
-        .then(res => {
-            if (res.data.success){
-                toast.success('Update successfully!')
-                // setData({
-                //     ...data,
-                //     img: image,
-                //     text,
-                //     video: linkYoutube
-                // })
-            }else{
-                toast.error(res.data.msg)
-            }
+
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/post/edit', formData )
+            .then(res => {
+                if (res.data.success){
+                    
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Update successful!',
+            error: 'Somethings wrong!'
         })
+        
+        // api.post('/post/edit', formData )
+        // .then(res => {
+        //     if (res.data.success){
+        //         toast.success('Update successfully!')
+        //         // setData({
+        //         //     ...data,
+        //         //     img: image,
+        //         //     text,
+        //         //     video: linkYoutube
+        //         // })
+        //     }else{
+        //         toast.error(res.data.msg)
+        //     }
+        // })
         handleEdit()
     }
     useEffect(() => (textRef.current && textRef.current.focus()) , [])

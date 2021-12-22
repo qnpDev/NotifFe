@@ -10,20 +10,17 @@ import { BsDot } from 'react-icons/bs'
 import { UserContext } from '../../contexts/UserContext';
 import api from '../../axios'
 import { toast } from 'react-toastify';
-import { CloseButton, Modal } from 'react-bootstrap';
-import TextareaAutosize from 'react-textarea-autosize';
 import ShowMoreText from 'react-show-more-text'
 import { confirmAlert } from 'react-confirm-alert'
 import { Link } from 'react-router-dom';
 import { IoContext } from '../../contexts/IoContext';
+import PostEditComment from './PostEditComment';
 
 function PostComment({ data, authorId, postId, deleteComment }){
     const { userID } = useContext(UserContext)
     const [like, setLike] = useState(data.like.includes(userID.id))
     const [countLike, setCountLike] = useState(data.like.length)
-    const [showModal, setShowModal] = useState(false)
     const [dataText, setDataText] = useState(data.text)
-    const [text, setText] = useState(data.text)
     const {socket} = useContext(IoContext)
     const handleLike = () => {
         api.post('/post/likecomment', {
@@ -88,28 +85,14 @@ function PostComment({ data, authorId, postId, deleteComment }){
             }
           });
     }
-    const handleShowModal = () => {
-        if (showModal === false)
-            setText(data.text)
-        setShowModal(!showModal)
-    }
-    const handleText = e => {
-        setText(e.target.value)
-    }
-    const handleUpdate = () => {
-        api.post('/post/editComment', {
-            postId,
-            commentId: data._id,
-            text,
-        }).then(res=>{
-            if(res.data.success){
-                toast.success(res.data.msg)
-                // setDataText(text)
-                handleShowModal()
-            }else{
-                toast.error(res.data.msg)
+    const handleEdit = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <PostEditComment data={dataText} postId={postId} commentId={data._id} close={onClose} />
+              );
             }
-        })
+          });
     }
     useEffect(() => {
         socket.on('postCommentLike' + data._id, res => {
@@ -184,7 +167,7 @@ function PostComment({ data, authorId, postId, deleteComment }){
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='p-0 m-0 bg-light'>
                                 <Dropdown.Item
-                                    onClick={handleShowModal}
+                                    onClick={handleEdit}
                                     className='text'
                                 >Edit</Dropdown.Item>
                                 <Dropdown.Item
@@ -204,38 +187,6 @@ function PostComment({ data, authorId, postId, deleteComment }){
             </div>
             
         </div>
-        
-        <Modal 
-            show={showModal}
-            size='lg' 
-            centered
-            onHide={handleShowModal}
-        >
-            <Modal.Header className='d-flex justify-content-center bg'>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Edit Comment
-                </Modal.Title>
-                <CloseButton onClick={handleShowModal} variant={localStorage.getItem('darkTheme') === 'true' ? 'white' : null}/>
-            </Modal.Header>
-            <Modal.Body className='bg'>
-                <TextareaAutosize
-                    value={text}
-                    onChange={handleText}
-                    className='form-control text bg-transparent border-0'
-                    maxRows='7'
-                    minRows='5'
-                    placeholder="What's on your mind, Q"
-                    style={{resize: 'none'}}
-                />
-            </Modal.Body>
-            <Modal.Footer className='bg'>
-                <button 
-                    className={text ? 'btn btn-primary w-100' : 'btn btn-secondary w-100' }
-                    disabled={text ? false : true}
-                    onClick={handleUpdate}
-                >Update</button>
-            </Modal.Footer>
-        </Modal>
         </>
     );
 };

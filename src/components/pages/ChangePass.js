@@ -16,20 +16,28 @@ function ChangePass() {
     const handleNewPassAgain = e => setNewPassAgain(e.target.value)
 
     const handleUpdate = () => {
-        api.post('/user/password', {
-            oldPassword: oldPass,
-            newPassword: newPass,
-        }).then(res=>{
-            if(res.data.success){
-                toast.success(res.data.msg)
-                api.post('/auth/logout', {
-                    refreshToken: localStorage.getItem('refreshToken')
-                })
-                localStorage.removeItem('token')
-                localStorage.removeItem('refreshToken')
-                navigate('/login', {replace: true})
-            }else
-                toast.error(res.data.msg)
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/user/password', {
+                oldPassword: oldPass,
+                newPassword: newPass,
+            }).then(res=>{
+                if (res.data.success){
+                    api.post('/auth/logout', {
+                        refreshToken: localStorage.getItem('refreshToken')
+                    })
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('refreshToken')
+                    navigate('/login', {replace: true})
+                    resolve()
+                }else{
+                    reject(res.data.msg)
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Change Password successful!',
+            error: 'Check your old password'
         })
     }
     
