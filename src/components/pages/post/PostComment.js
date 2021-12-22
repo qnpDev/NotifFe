@@ -41,18 +41,25 @@ function PostComment({ data, authorId, postId, deleteComment }){
         })
     }
     const apiDelete = close => {
-        api.post('/post/deleteComment', {
-            postId,
-            commentId: data._id
-        }).then(res=>{
-            if(res.data.success){
-                toast.success(res.data.msg)
-                close()
-                // deleteComment(data._id)
-            }else{
-                toast.error(res.data.msg)
-            }
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/post/deleteComment', {
+                postId,
+                commentId: data._id
+            }).then(res=>{
+                if (res.data.success){
+                    close()
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Delete Successful!',
+            error: 'Delete Error!',
         })
+
     }
     const handleDelete = () => {
         confirmAlert({

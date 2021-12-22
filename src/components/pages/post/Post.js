@@ -66,16 +66,22 @@ const Post = ({ data, deletePost }) => {
         setLimitComment(prev => prev + 1)
     }
     const apiDelete = close => {
-        api.post('/post/delete', {
-            id: dataPost._id
-        }).then(res=>{
-            if(res.data.success){
-                toast.success('Delete successfully!')
-                close()
-                // deletePost(dataPost._id)
-            }else{
-                toast.error(res.data.msg)
-            }
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/post/delete', {
+                id: dataPost._id
+            }).then(res=>{
+                if (res.data.success){
+                    close()
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Delete successful!',
+            error: 'Delete error!'
         })
     }
     const handleDelete = () => {

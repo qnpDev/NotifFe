@@ -54,20 +54,28 @@ const NewPost = ( { user, setPost, realtime }) => {
             )
         formData.append('text', text)
         formData.append('video', linkYoutube)
-        await api.post('/post/new', formData )
-        .then(res => {
-            if (res.data.success){
-                toast.success('Post successfully!');
-                handleShowModal()
-                if(!realtime)
-                    setPost(prev => [ res.data.data , ...prev])
-                setText('')
-                setImage(null)
-                setInputYoutube('')
-                setLinkYoutube(null)
-            }else{
-                toast.error('Post error!');
-            }
+
+
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/post/new', formData ).then(res=>{
+                if (res.data.success){
+                    handleShowModal()
+                    if(!realtime)
+                        setPost(prev => [ res.data.data , ...prev])
+                    setText('')
+                    setImage(null)
+                    setInputYoutube('')
+                    setLinkYoutube(null)
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Post successful!',
+            error: 'Post error!'
         })
         
     }
