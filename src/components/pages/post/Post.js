@@ -244,15 +244,6 @@ const Post = ({ data, deletePost }) => {
                     )}
                 
                 
-                {/* {dataPost.img && dataPost.img.length > 0 && (
-                    <div className='mt-1 d-flex flex-wrap justify-content-center'>
-                        {dataPost.img.map((value, index)=> (
-                            <div key={index} className="newpost-img-wraps">
-                                <img className='w-100 h-100' src={value} alt='previewImage'/>
-                            </div>
-                        ))}
-                    </div>
-                )} */}
 
                 {dataPost.img && dataPost.img.length > 0 && (
                     <div className='mt-1'>
