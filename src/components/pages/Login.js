@@ -72,28 +72,30 @@ function Login() {
     }
 
     const onGoogleSuccess = response => {
-        //console.log(response)
         const { tokenId, profileObj } = response
 
-        api.post('/auth/google', {
-            tokenId,
-            profileObj
-        }).then(res => {
-            //console.log(res.data)
-            if (res.data.success){
-                const {token, refreshToken} = res.data
-                localStorage.setItem('token', token)
-                localStorage.setItem('refreshToken', refreshToken)
-                navigate('/')
-            }else{
-                error(res.data.msg)
-            }
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/auth/google', {
+                tokenId,
+                profileObj
+            }).then(res => {
+                if (res.data.success){
+                    const {token, refreshToken} = res.data
+                    localStorage.setItem('token', token)
+                    localStorage.setItem('refreshToken', refreshToken)
+                    navigate('/')
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Login successful!',
+            error: 'Login false!'
         })
     }
-
-    // const onGoogleFailure = () => {
-    //     error("Can't login!")
-    // }
 
     const handleChangeTheme = () => setDarkTheme(!darkTheme)
     useEffect(()=>{
@@ -169,19 +171,11 @@ function Login() {
                         </div>
                         <div className='row mt-5'>
                             <div className='col-6 login-border-right d-flex align-items-center'>
-                                {/* <button 
-                                    onClick={handleGoogle}
-                                    className='login-btn-google text-white '
-                                >
-                                    <BsGoogle/>
-                                    <span className='text-white'> Sign in with google</span>
-                                </button> */}
-                                {/* <a href='http://localhost:9000/auth/google'>login gg</a> */}
                                 <GoogleLogin
                                     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                                     buttonText="Sign in with Google"
                                     onSuccess={onGoogleSuccess}
-                                    onFailure={() => error("Google Auth has issue!")}
+                                    onFailure={() => error("Somethings Wrong!")}
                                     cookiePolicy={'single_host_origin'}
                                     render={renderProps => (
                                         <button 
