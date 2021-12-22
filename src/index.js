@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-import "react-image-gallery/styles/css/image-gallery.css"
 
 import './index.css';
 import App from './App';
