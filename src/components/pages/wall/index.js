@@ -184,12 +184,11 @@ const Wall = () => {
                             )}
                             <span>{khoa}</span>
                         </div>
-                        <div className='text-secondary text-small'>
-                            <span>{des}</span>
-                        </div>
                     </>
                 )}
-                
+                <div className='text-secondary text-small'>
+                    <span>{des}</span>
+                </div>
                 {(userID.per >= 2 || userID.id === user.user._id) && (
                     <button
                         onClick={handleDes}

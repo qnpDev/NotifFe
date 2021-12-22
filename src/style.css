@@ -718,3 +718,14 @@ button, .text, .text:focus{
     display: inline-block;
 }
 /* end center v h */
+
+/* mini display */
+@media screen and (max-width: 333px) {
+    .mini-dp{
+        display: none;
+    }
+    .mini-dp-except{
+        width: 100% !important;
+    }
+}
+/* mini display */

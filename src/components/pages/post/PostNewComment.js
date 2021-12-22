@@ -34,17 +34,6 @@ const PostNewComment = ({ data, addComment }, ref, ) => {
             success: 'Successful!',
             error: 'Somethings wrong!',
         })
-        // api.post('/post/newComment', {
-        //     postId: data,
-        //     text
-        // }).then(res=>{
-        //     if(res.data.success){
-        //         setText('')
-        //         // addComment(res.data.data)
-        //     }else{
-        //         toast.error('Somethings wrong!')
-        //     }
-        // })
     }
     
     useImperativeHandle(ref, ()=> ({
@@ -57,7 +46,7 @@ const PostNewComment = ({ data, addComment }, ref, ) => {
         <div className='my-2  mx-0'>
             <div className='border-top'>
                 <div className='row my-1 mx-0'>
-                    <div className='col-1'>
+                    <div className='col-1 mini-dp'>
                         <div className='d-flex justify-content-center'>
                             <div className='post-img-new-comment'> 
                                 <img src={userID.avatar} alt=''/> 

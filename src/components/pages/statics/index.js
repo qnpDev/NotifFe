@@ -236,7 +236,9 @@ const Static = () => {
             <footer className='text-center foot'>
                 <div className="text-center p-3 text-white cursor-default">
                     <span>© 2021 Copyright: </span>
-                    <span className="text-info font-weight-bold">qnp</span>
+                    <Link to='/about' className="text-info font-weight-bold">
+                        Nguyễn Phú Quí
+                    </Link>
                 </div>
             </footer>
         </>

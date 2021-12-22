@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from '../../contexts/UserContext';
@@ -189,7 +189,9 @@ const Static = () => {
             <footer className='text-center foot'>
                 <div className="text-center p-3 text-white cursor-default">
                     <span>© 2021 Copyright: </span>
-                    <span className="text-info font-weight-bold">qnp</span>
+                    <Link to='/admin/about' className="text-info font-weight-bold">
+                        Nguyễn Phú Quí
+                    </Link>
                 </div>
             </footer>
         </>

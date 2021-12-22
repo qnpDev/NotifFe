@@ -95,14 +95,14 @@ const NewPost = ( { user, setPost, realtime }) => {
         <div className='card mb-3'>
             <div className='card-body'>
                 <div className='row mb-2'>
-                    <div className='col-1'>
+                    <div className='col-1 mini-dp'>
                         <div className='d-flex justify-content-center'>
                             <div className='header_img'> 
                                 <img src={user.avatar} alt=''/> 
                             </div>
                         </div>
                     </div>
-                    <div className='col-11'>
+                    <div className='col-11 mini-dp-except'>
                         <div className='input-group'>
                             <button className='btn-transparent m-0 p-0 w-100 cursor-pointer' onClick={handleShowModal}>
                             <input
