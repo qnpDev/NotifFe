@@ -158,7 +158,7 @@ const NewPost = ( { user, setPost, realtime }) => {
                     className='form-control text bg-transparent border-0'
                     maxRows='7'
                     minRows='5'
-                    placeholder="What's on your mind, Q"
+                    placeholder={"What's on your mind, " + user.name.split(' ')[user.name.split(' ').length - 1] + '!'}
                     style={{resize: 'none'}}
                 />
                 {image && (

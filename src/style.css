@@ -702,3 +702,19 @@ button, .text, .text:focus{
     vertical-align: middle;
 }
 /* 404 */
+
+/* center v h */
+.centervh{
+    display: table;
+    min-width: 100%;
+    min-height: 100%;
+}
+.centervh-content{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.centervh-item{
+    display: inline-block;
+}
+/* end center v h */
