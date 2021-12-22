@@ -55,6 +55,7 @@ instance.interceptors.response.use(
           localStorage.removeItem('token')
           localStorage.removeItem('refreshToken')
           window.location = '/login'
+          return Promise.reject()
       }
     }
 

@@ -181,9 +181,8 @@ function Login() {
                                     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                                     buttonText="Sign in with Google"
                                     onSuccess={onGoogleSuccess}
-                                    // onFailure={onGoogleFailure}
-                                    onFailure={() => error("Can't login!")}
-                                    // className="google-login-button" 
+                                    onFailure={() => error("Google Auth has issue!")}
+                                    cookiePolicy={'single_host_origin'}
                                     render={renderProps => (
                                         <button 
                                             onClick={renderProps.onClick} 
