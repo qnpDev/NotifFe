@@ -185,9 +185,19 @@ const Post = ({ data, deletePost }) => {
                                     </b>
                                 </div>
                                 <div className='post-date-size text-secondary'>
-                                    <span>{new Date(dataPost.createdAt).toLocaleString("en-US")}</span>
-                                    <span> <BsDot/> </span>
-                                    <span><MdGroups/></span>
+                                    {dataPost.updatedAt ? (
+                                         <>
+                                            <span>{(new Date(dataPost.updatedAt).toLocaleString("en-US")) + ' updated'}</span>
+                                            <span> <BsDot/> </span>
+                                            <span><MdGroups/></span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>{new Date(dataPost.createdAt).toLocaleString("en-US")}</span>
+                                            <span> <BsDot/> </span>
+                                            <span><MdGroups/></span>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
