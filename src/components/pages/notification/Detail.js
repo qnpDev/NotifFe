@@ -73,9 +73,9 @@ function Detail() {
                             </span>
                         </div>
                     </div>
-                    <div className='m-2 mt-5' style={{whiteSpace: 'pre-wrap'}}>
+                    <pre className='m-2 mt-5' style={{whiteSpace: 'pre-wrap'}}>
                         {data.content}
-                    </div>
+                    </pre>
                     {data.file.length > 0 && (
                         <div className='mt-5 border-top'>
                             <h4 className='fst-italic text-primary'>Files: </h4>
