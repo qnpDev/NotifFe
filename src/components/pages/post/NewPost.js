@@ -100,7 +100,7 @@ const NewPost = ( { user, setPost, realtime }) => {
             <div className='card-body'>
                 <div className='row mb-2'>
                     <div className='col-1 mini-dp'>
-                        <div className='d-flex justify-content-center'>
+                        <div className='h-100 w-100 d-flex justify-content-center align-items-center'>
                             <div className='header_img'> 
                                 <img src={user.avatar} alt=''/> 
                             </div>
@@ -136,7 +136,7 @@ const NewPost = ( { user, setPost, realtime }) => {
                     <div className='col-4'>
                         <button onClick={handleShowModal} className='post-btn'>
                             <span className='text-warning'><CgSmileMouthOpen/></span>
-                            <span> Felling</span>
+                            <span> Feel</span>
                         </button>
                     </div>
                 </div>

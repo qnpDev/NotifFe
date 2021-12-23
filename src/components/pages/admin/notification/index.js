@@ -17,16 +17,16 @@ function Notification() {
     document.title = 'Notification | AdminPanel'
     
     const navigate = useNavigate()
-    const [ list, setList ] = useState([])
-    const [ listDepartment, setListDepartment ] = useState([])
+    const [ list, setList ] = useState()
+    const [ listDepartment, setListDepartment ] = useState()
     const [ checkPer, setCheckPer ] = useState(true)
     const [ searchText, setSearchText] = useState('')
     const [ searchTextDepartment, setSearchTextDepartment ] = useState('')
 
-    const filteredItems = list.filter(
+    const filteredItems = list && list.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
 	)
-    const fileredDepartment = listDepartment.filter(
+    const fileredDepartment = listDepartment && listDepartment.filter(
 		item => item.name.toLowerCase().includes(searchTextDepartment.toLowerCase())
             || item.sign.toLowerCase().includes(searchTextDepartment.toLowerCase())
 	)
@@ -72,7 +72,7 @@ function Notification() {
         })
     }, [])
 
-    if(!list)
+    if(!list || !listDepartment)
         return ( <Loading /> )
     if(!checkPer)
         return ( <Error />)

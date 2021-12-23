@@ -4,8 +4,8 @@ import api from '../../../axios'
 
 function Delete({ close, data, setList}) {
 
-    const handleDelete = async() => {
-        await api.post('manager/delete', {notifId: data._id}).then(res => {
+    const handleDelete = () => {
+        api.post('manager/delete', {notifId: data._id}).then(res => {
             if(res.data.success){
                 setList(prev => prev.filter(value => value._id !== data._id))
                 toast.success(res.data.msg)

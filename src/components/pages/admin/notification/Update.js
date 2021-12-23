@@ -3,9 +3,14 @@ import { CloseButton, Modal } from 'react-bootstrap';
 import api from '../../../axios'
 import DataTable from 'react-data-table-component';
 import { toast } from 'react-toastify';
-import TextareaAutosize from 'react-textarea-autosize';
+// import TextareaAutosize from 'react-textarea-autosize';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import { IoTrashBinSharp, IoAddCircleSharp } from 'react-icons/io5'
+import { ContentState, convertToRaw, EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg'
+import htmlToDraft from 'html-to-draftjs';
+import draftToHtml from 'draftjs-to-html';
 
 function Update({ close, data, setList, listDepartment }) {
 
@@ -20,6 +25,9 @@ function Update({ close, data, setList, listDepartment }) {
     const [ dataFileDel, setDataFileDel ] = useState([])
     const [ files, setFiles ] = useState()
     const refFiles = useRef()
+
+    const { contentBlocks, entityMap } = htmlToDraft(data.content)
+    const [ contentText, setContentText ] = useState(EditorState.createWithContent(ContentState.createFromBlockArray(contentBlocks, entityMap)))
 
     const filteredItems = selectedRows && selectedRows.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
@@ -44,7 +52,11 @@ function Update({ close, data, setList, listDepartment }) {
     }
     const handleSearchTextNot = e => setSearchTextNot(e.target.value)
     const handleName = e => setName(e.target.value)
-    const handleContent = e => setContent(e.target.value)
+    // const handleContent = e => setContent(e.target.value)
+    const handleContent = e => {
+        setContentText(e)
+        setContent(draftToHtml(convertToRaw(e.getCurrentContent())))
+    }
     const handleSearchText = e => setSearchText(e.target.value)
     const handleImportant = e => setImportant(e.target.value)
     const handleFiles = e =>{
@@ -59,7 +71,7 @@ function Update({ close, data, setList, listDepartment }) {
     const handleDeleteFile = e => 
         setFiles(prev => prev.filter((value, index) => index !== e))
 
-    const handleUpdate = async() => {
+    const handleUpdate = () => {
         let formData = new FormData()
         formData.append('notifId', data._id)
         formData.append('name', name)
@@ -71,7 +83,7 @@ function Update({ close, data, setList, listDepartment }) {
             selectedRows.map(value => formData.append('department', value._id))
         if(files)
             files.map(value => formData.append('files', value))
-        await api.post('/manager/edit', formData ).then(res=>{
+        api.post('/manager/edit', formData ).then(res=>{
             if(res.data.success){
                 setList(prev => prev.map(value =>
                     value._id === data._id
@@ -109,7 +121,7 @@ function Update({ close, data, setList, listDepartment }) {
                         </label>
                         <input 
                             type='text'
-                            className='form-control text bg'
+                            className='form-control text bg input-mind'
                             value={name}
                             onChange={handleName}
                             placeholder='Enter name!'
@@ -122,7 +134,7 @@ function Update({ close, data, setList, listDepartment }) {
                                 *
                             </span>
                         </label>
-                        <TextareaAutosize
+                        {/* <TextareaAutosize
                             value={content}
                             onChange={handleContent}
                             className='form-control text bg'
@@ -130,7 +142,16 @@ function Update({ close, data, setList, listDepartment }) {
                             minRows='5'
                             placeholder="What's content!"
                             style={{resize: 'none'}}
-                            />
+                            /> */}
+
+                        <Editor 
+                            editorState={contentText}
+                            onEditorStateChange={handleContent}
+                            wrapperClassName="form-control text bg input-mind richtext-wrapper"
+                            editorClassName="richtext-editor p-2"
+                            toolbarClassName="richtext-toolbar"
+                        />
+
                     </div>
                     <div className='input-group mb-3'>
                         <label className='input-group-text fw-bold bg border-0'>
@@ -141,7 +162,7 @@ function Update({ close, data, setList, listDepartment }) {
                         </label>
                         <select
                             onChange={handleImportant}
-                            className='form-select bg'
+                            className='form-select bg input-mind'
                             defaultValue={important}
                         >
                             <option value={false}>No</option>
@@ -154,7 +175,7 @@ function Update({ close, data, setList, listDepartment }) {
                         </label>
                         <ul className='list-group'>
                             {dataFile && dataFile.map(value => (
-                                <li key={value} className='list-group-item bg'>
+                                <li key={value} className='list-group-item bg input-mind'>
                                     <div className='d-flex justify-content-between'>
                                         <div>{value.split('/')[value.split('/').length - 1]}</div>
                                         <div 
@@ -167,7 +188,7 @@ function Update({ close, data, setList, listDepartment }) {
                         </ul>
                         <ul className='list-group'>
                             {files && files.map((value, index) => (
-                                <li key={index} className='list-group-item bg'>
+                                <li key={index} className='list-group-item bg input-mind'>
                                     <div className='d-flex justify-content-between'>
                                         <div>{value.name || value}</div>
                                         <div 
@@ -181,7 +202,7 @@ function Update({ close, data, setList, listDepartment }) {
                         <input 
                             ref={refFiles}
                             type='file'
-                            className='form-control text bg'
+                            className='form-control text bg input-mind'
                             multiple
                             onChange={handleFiles}
                         />

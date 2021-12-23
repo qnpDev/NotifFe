@@ -732,3 +732,22 @@ button, .text, .text:focus{
     }
 }
 /* mini display */
+
+/* richtext */
+.richtext-wrapper {
+    box-sizing: border-box !important;
+}
+.richtext-editor {
+    background: none;
+    border: 1px solid #ccc;
+    color: var(--text-color);
+    border-radius: 15px;
+}
+.richtext-toolbar{
+    border: none !important;
+    border-radius: 15px !important;
+}
+.richtext-toolbar *{
+    color: black;
+}
+/* richtext */

@@ -16,12 +16,12 @@ function Notification() {
     
     const navigate = useNavigate()
     const { id } = useParams()
-    const [ list, setList ] = useState([])
-    const [ listDepartment, setListDepartment ] = useState([])
+    const [ list, setList ] = useState()
+    const [ listDepartment, setListDepartment ] = useState()
     const [ checkPer, setCheckPer ] = useState(true)
     const [ searchText, setSearchText] = useState('')
 
-    const filteredItems = list.filter(
+    const filteredItems = list && list.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
             
 	)

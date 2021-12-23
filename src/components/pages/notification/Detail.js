@@ -5,6 +5,7 @@ import api from '../../axios'
 import Loading from '../loading';
 import { BsArrowDownCircleFill } from 'react-icons/bs'
 import Error from '../Error';
+import DOMPurify from 'dompurify';
 
 function Detail() {
 
@@ -12,6 +13,8 @@ function Detail() {
     const { id } = useParams()
     const [ data, setData ] = useState()
     const [ err, setErr ] = useState(false)
+
+    const createMarkup = e => ({__html: DOMPurify.sanitize(e)})
     
     useEffect(() => {
         api.get('/notification/detail', {
@@ -73,9 +76,10 @@ function Detail() {
                             </span>
                         </div>
                     </div>
-                    <pre className='m-2 mt-5' style={{whiteSpace: 'pre-wrap'}}>
+                    {/* <pre className='m-2 mt-5' style={{whiteSpace: 'pre-wrap'}}>
                         {data.content}
-                    </pre>
+                    </pre> */}
+                    <pre className='m-2 mt-5' dangerouslySetInnerHTML={createMarkup(data.content)}></pre>
                     {data.file.length > 0 && (
                         <div className='mt-5 border-top'>
                             <h4 className='fst-italic text-primary'>Files: </h4>

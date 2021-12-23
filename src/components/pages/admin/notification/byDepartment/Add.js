@@ -2,9 +2,14 @@ import React, { useRef, useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
 import api from '../../../../axios'
 import { toast } from 'react-toastify';
-import TextareaAutosize from 'react-textarea-autosize';
+// import TextareaAutosize from 'react-textarea-autosize';
 
 import { IoTrashBinSharp } from 'react-icons/io5'
+
+import { convertToRaw, EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import draftToHtml from 'draftjs-to-html';
 
 function Add({ close, setList, idDepartment }) {
 
@@ -13,9 +18,14 @@ function Add({ close, setList, idDepartment }) {
     const [ important, setImportant ] = useState(false)
     const [ files, setFiles ] = useState()
     const refFiles = useRef()
+    const [ contentText, setContentText ] = useState(() => EditorState.createEmpty())
 
     const handleName = e => setName(e.target.value)
-    const handleContent = e => setContent(e.target.value)
+    // const handleContent = e => setContent(e.target.value)
+    const handleContent = e => {
+        setContentText(e)
+        setContent(draftToHtml(convertToRaw(e.getCurrentContent())))
+    }
     const handleImportant = e => setImportant(e.target.value)
     const handleFiles = e =>{
         let file = files ? [...files] : []
@@ -29,7 +39,7 @@ function Add({ close, setList, idDepartment }) {
     const handleDeleteFile = e => 
         setFiles(prev => prev.filter((value, index) => index !== e))
 
-    const handleAdd = async() => {
+    const handleAdd = () => {
         let formData = new FormData()
         formData.append('name', name)
         formData.append('content', content)
@@ -37,14 +47,21 @@ function Add({ close, setList, idDepartment }) {
         formData.append('department', idDepartment)
         if(files)
             files.map(value => formData.append('files', value))
-        await api.post('/manager/add', formData ).then(res=>{
-            if(res.data.success){
-                setList(prev => [res.data.data, ...prev])
-                toast.success('Add successful!')
-                close()
-            }else{
-                toast.error(res.data.msg)
-            }
+        toast.promise(new Promise((resolve, reject) => {
+            api.post('/manager/add', formData ).then(res=>{
+                if (res.data.success){
+                    setList(prev => [res.data.data, ...prev])
+                    close()
+                    resolve()
+                }else{
+                    reject()
+                }
+            })
+
+        }), {
+            pending: 'Wait...',
+            success: 'Add successful!',
+            error: 'Add error!'
         })
     }
     return (
@@ -71,7 +88,7 @@ function Add({ close, setList, idDepartment }) {
                         </label>
                         <input 
                             type='text'
-                            className='form-control text bg'
+                            className='form-control text bg input-mind'
                             value={name}
                             onChange={handleName}
                             placeholder='Enter name!'
@@ -84,7 +101,7 @@ function Add({ close, setList, idDepartment }) {
                                 *
                             </span>
                         </label>
-                        <TextareaAutosize
+                        {/* <TextareaAutosize
                             value={content}
                             onChange={handleContent}
                             className='form-control text bg'
@@ -92,7 +109,14 @@ function Add({ close, setList, idDepartment }) {
                             minRows='5'
                             placeholder="What's content!"
                             style={{resize: 'none'}}
-                            />
+                            /> */}
+                        <Editor 
+                            editorState={contentText}
+                            onEditorStateChange={handleContent}
+                            wrapperClassName="form-control text bg input-mind richtext-wrapper"
+                            editorClassName="richtext-editor p-2"
+                            toolbarClassName="richtext-toolbar"
+                        />
                     </div>
                     <div className='input-group mb-3'>
                         <label className='input-group-text fw-bold bg border-0'>
@@ -103,7 +127,7 @@ function Add({ close, setList, idDepartment }) {
                         </label>
                         <select
                             onChange={handleImportant}
-                            className='form-select bg'
+                            className='form-select bg input-mind'
                         >
                             <option value={false}>No</option>
                             <option value={true}>Yes</option>
@@ -115,7 +139,7 @@ function Add({ close, setList, idDepartment }) {
                         </label>
                         <ul className='list-group'>
                             {files && files.map((value, index) => (
-                                <li key={index} className='list-group-item bg'>
+                                <li key={index} className='list-group-item bg input-mind'>
                                     <div className='d-flex justify-content-between'>
                                         <div>{value.name}</div>
                                         <div 
@@ -129,7 +153,7 @@ function Add({ close, setList, idDepartment }) {
                         <input 
                             ref={refFiles}
                             type='file'
-                            className='form-control text bg'
+                            className='form-control text bg input-mind'
                             multiple
                             onChange={handleFiles}
                         />
