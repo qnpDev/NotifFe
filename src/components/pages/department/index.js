@@ -7,7 +7,7 @@ const Department = () => {
     document.title = 'Department'
 
     const navigate = useNavigate()
-    const [ list, setList ] = useState([])
+    const [ list, setList ] = useState()
     
     useEffect(()=> {
         const getData = async () => await api.get('/department').then(res => {
@@ -16,7 +16,7 @@ const Department = () => {
         getData()
     }, [])
 
-    if (list.length === 0)
+    if (!list)
         return ( <Loading/> )
     return (
         <div className='card'>

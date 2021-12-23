@@ -16,11 +16,11 @@ const Department = () => {
     document.title = 'Departments | AdminPanel'
 
     const navigate = useNavigate()
-    const [ list, setList ] = useState([])
+    const [ list, setList ] = useState()
     const [ searchText, setSearchText ] = useState('')
     const [ btnCreate, setBtnCreate ] = useState(false)
 
-    const filteredItems = list.filter(
+    const filteredItems = list && list.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
             || item.sign.toLowerCase().includes(searchText.toLowerCase())
 	)
@@ -84,7 +84,7 @@ const Department = () => {
         getData()
     }, [])
 
-    if (list.length === 0)
+    if (!list)
         return ( <Loading/> )
     return (
         <>
