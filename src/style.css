@@ -284,8 +284,11 @@ button, .text, .text:focus{
     /* font-size: 12px !important; */
 }
 @media screen and (max-width: 768px) {
-    .main *{
+    /* .main * :not(.text-small, .post-date-size, h1){
         font-size: 12px;
+    } */
+    .text-small{
+        font-size: 8px !important;
     }
     .home-notification-container{
         display: none !important;
@@ -417,7 +420,7 @@ button, .text, .text:focus{
     resize: none;
 }
 .post-date-size{
-    font-size: 10px;
+    font-size: 8px;
 }
 .post-content{
     display: table;
@@ -508,7 +511,7 @@ button, .text, .text:focus{
 }
 .login-main{
     max-width: 600px;
-    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--input);
 }
 /* End Login */
 

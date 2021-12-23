@@ -18,7 +18,7 @@ function About() {
     const [ data, setData ] = useState()
     return (
         <>
-            <div className='card'>
+            <div className='card mx-2'>
                 <div className='card-header text-center'>
                     <div className='mt-3'>
                         <h1 className='text-info'>Notification App</h1>

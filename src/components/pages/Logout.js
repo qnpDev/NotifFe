@@ -22,22 +22,22 @@ function Logout() {
     return (
         <>
         <div className='d-flex justify-content-center'>
-            <div className='card px-5 center-v login-main'>
+            <div className='card px-4 center-v login-main mx-2'>
                 <div className='card-body p-5'>
                     <div className='text-center'>
                         <h1>Logout</h1>
                     </div>
                     <div className='mt-5'>
                         <div className='text-center text-warning'>Do you want to logout!</div>
-                        <div className='text-end mt-3'>
+                        <div className='text-center mt-3'>
                             <button
                                 onClick={() => navigate(-1)}
-                                className='btn btn-secondary text-white mx-1 px-3'
+                                className='btn btn-secondary text-white m-1 px-3'
                             >Back
                             </button>
                             <button 
                                 onClick={handleLogout}
-                                className='btn btn-info text-white mx-1 px-4'
+                                className='btn btn-info text-white m-1 px-4'
                             >Yes</button>
                         </div>
                     </div>

@@ -184,7 +184,7 @@ const Post = ({ data, deletePost }) => {
                                         <Link className='text' to={'/wall/' + dataPost.author._id}>{dataPost.author.name}</Link>
                                     </b>
                                 </div>
-                                <div className='post-date-size text-secondary'>
+                                <div className='post-date-size text-secondary fst-italic'>
                                     {dataPost.updatedAt ? (
                                          <>
                                             <span>{(new Date(dataPost.updatedAt).toLocaleString("en-US")) + ' updated'}</span>

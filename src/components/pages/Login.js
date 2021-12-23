@@ -9,7 +9,7 @@ import { BsGoogle } from 'react-icons/bs'
 
 
 function Login() {
-    document.title = 'Login'
+    document.title = 'Login | Notìication'
     const [darkTheme, setDarkTheme] = useState(localStorage.getItem('darkTheme') === 'true' ? true : false)
     const [btnSubmit,  setBtnSubmit] = useState(false)
     const navigate = useNavigate();
@@ -148,10 +148,7 @@ function Login() {
             style={{minHeight: '100vh'}}
         >
             <div className='header'>
-                {/* <div className='header_toggle'> */}
-                        {/* <BiAlignLeft onClick={handleNav}/> */}
-                {/* </div> */}
-                <div className='text fw-bold'>NOTIFICATION</div>
+                <div className='text fw-bold'>qnp | NOTIFICATION</div>
                     <label className="theme-switch" htmlFor="checktheme">
                         <input 
                                 checked={darkTheme} 
@@ -164,7 +161,7 @@ function Login() {
                     </label>
             </div>
             <div className='center-v'>
-                <div className='card login-main h-100'>
+                <div className='card login-main h-100 m-2'>
                     <div className='card-body p-5'>
                         <div className='text-center'>
                             <h1>Login</h1>
@@ -214,6 +211,14 @@ function Login() {
                 </div>
             </div>
         </div>
+            <footer className='text-center'>
+                <div className="text-center p-3 text-white cursor-default">
+                    <span className='text'>© 2021 Copyright: </span>
+                    <a href='https://facebook.com/100029121395944' className="text-info font-weight-bold">
+                        Nguyễn Phú Quí
+                    </a>
+                </div>
+            </footer>
         </>
     )
 }
