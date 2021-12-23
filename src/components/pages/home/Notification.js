@@ -59,7 +59,7 @@ const Notification = ({ data }) => {
                                 <span className='text-break text-uppercase'><b>{value.name.substring(0,50)}</b></span>
                             </div>
                             <div className='post-date-size'>
-                                {value.content.substring(0,100)}...
+                                {value.content.replace( /(<([^>]+)>)/ig, '').substring(0,100)}...
                             </div>
                         </li>
                     ))}

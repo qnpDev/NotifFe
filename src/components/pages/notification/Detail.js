@@ -79,7 +79,9 @@ function Detail() {
                     {/* <pre className='m-2 mt-5' style={{whiteSpace: 'pre-wrap'}}>
                         {data.content}
                     </pre> */}
-                    <pre className='m-2 mt-5' dangerouslySetInnerHTML={createMarkup(data.content)}></pre>
+                    <div 
+                        className='m-2 mt-5' 
+                        dangerouslySetInnerHTML={createMarkup(data.content)}></div>
                     {data.file.length > 0 && (
                         <div className='mt-5 border-top'>
                             <h4 className='fst-italic text-primary'>Files: </h4>
