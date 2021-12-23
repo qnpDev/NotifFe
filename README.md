@@ -1,3 +1,7 @@
+# qnp Notification App Client
+Nguyễn Phú Quí (qnp)
+(https://facebook.com/100029121395944)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
