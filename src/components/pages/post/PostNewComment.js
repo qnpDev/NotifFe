@@ -47,7 +47,7 @@ const PostNewComment = ({ data, addComment }, ref, ) => {
             <div className='border-top'>
                 <div className='row my-1 mx-0'>
                     <div className='col-1 mini-dp'>
-                        <div className='d-flex justify-content-center'>
+                        <div className='h-100 w-100 d-flex justify-content-center align-items-center'>
                             <div className='post-img-new-comment'> 
                                 <img src={userID.avatar} alt=''/> 
                             </div>

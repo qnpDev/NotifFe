@@ -630,7 +630,7 @@ button, .text, .text:focus{
     position: absolute;
     top: 5px;
     right: 20px;
-    z-index: 100;
+    z-index: 1;
     background-color: none;
     padding: 2px 1px;
      
