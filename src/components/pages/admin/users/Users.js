@@ -109,6 +109,11 @@ const Users = ({data}) => {
                             sortable: true,
                         },
                         {
+                            name: 'Permission',
+                            selector: row => (row.per.permission === 2 ? 'Admin' : row.per.permission === 1 ? 'Manager' : 'Student'),
+                            sortable: true,
+                        },
+                        {
                             name: 'CreateAt',
                             selector: row => new Date(row.createdAt).toLocaleString("en-US"),
                             sortable: true,

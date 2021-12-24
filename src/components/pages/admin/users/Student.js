@@ -87,8 +87,13 @@ const Student = ({data}) => {
                             sortable: true,
                         },
                         {
-                            name: 'email',
+                            name: 'Email',
                             selector: row => row.per.email,
+                            sortable: true,
+                        },
+                        {
+                            name: 'StudentID',
+                            selector: row => row.per.studentId,
                             sortable: true,
                         },
                         {

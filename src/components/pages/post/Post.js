@@ -335,7 +335,7 @@ const Post = ({ data, deletePost }) => {
                 )}
                 
 
-                <PostNewComment ref={commentRef} data={dataPost._id} addComment={setComment}/>
+                <PostNewComment ref={commentRef} data={dataPost._id}/>
 
             </div>
         </div>

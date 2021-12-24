@@ -39,19 +39,7 @@ const Notification = ({ data }) => {
                         >
                             <div className='text-secondary text-small d-flex justify-content-between'>
                                 <div>[
-                                {value.department.map((v, index) => index === value.department.length - 1 
-                                    ? (
-                                        <span
-                                            key={v._id}
-                                        >
-                                            {v.sign}
-                                        </span>
-                                    )
-                                    : (
-                                        <span key={v._id}>{v.sign}, </span>
-                                        
-                                    )
-                                )}
+                                {String(value.department.map(v => v.sign)).substring(0,20)}
                                 ]</div>
                                 <div>{(new Date(value.createdAt)).getDate()}/{(new Date(value.createdAt)).getMonth()}/{(new Date(value.createdAt)).getFullYear()}</div>
                             </div>
@@ -59,7 +47,7 @@ const Notification = ({ data }) => {
                                 <span className='text-break text-uppercase'><b>{value.name.substring(0,50)}</b></span>
                             </div>
                             <div className='post-date-size'>
-                                {value.content.replace( /(<([^>]+)>)/ig, '').substring(0,100)}...
+                                {value.content && value.content.replace( /(<([^>]+)>)/ig, '').substring(0,100)}...
                             </div>
                         </li>
                     ))}

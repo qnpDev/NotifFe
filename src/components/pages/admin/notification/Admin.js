@@ -24,7 +24,7 @@ function Notification() {
 
     const filteredItems = list && list.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
-            
+        || item.content.replace( /(<([^>]+)>)/ig, '').toLowerCase().includes(searchText.toLowerCase()) 
 	)
 
     const handleCreate = () => {
@@ -87,7 +87,7 @@ function Notification() {
                         <input
                             className='form-control input-mind bg-light text'
                             type="text"
-                            placeholder="Filter By Title"
+                            placeholder="Filter By Title | Content"
                             aria-label="Search Input"
                             onChange={handleSearchText}
                             value={searchText}
@@ -104,12 +104,12 @@ function Notification() {
                         },
                         {
                             name: 'Title',
-                            selector: row => row.name,
+                            selector: row => row.name && row.name.replace( /(<([^>]+)>)/ig, '').substring(0,100),
                             sortable: true,
                         },
                         {
                             name: 'Content',
-                            selector: row => row.content,
+                            selector: row => row.content && row.content.replace( /(<([^>]+)>)/ig, '').substring(0,100),
                             sortable: true,
                         },
                         {

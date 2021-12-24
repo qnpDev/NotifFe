@@ -21,7 +21,7 @@ function ListNotif() {
 
     let filteredItems = list && list.filter(
 		item => item.name.toLowerCase().includes(searchText.toLowerCase())
-            || item.content.toLowerCase().includes(searchText.toLowerCase())
+            || item.content.replace( /(<([^>]+)>)/ig, '').toLowerCase().includes(searchText.toLowerCase())
 	) 
     if (filterImportant) {
         filteredItems = filteredItems.filter(item => item.important === true)
@@ -102,12 +102,12 @@ function ListNotif() {
                     columns={[
                         {
                             name: 'Title',
-                            selector: row => row.name,
+                            selector: row => row.name && row.name.replace( /(<([^>]+)>)/ig, '').substring(0,100),
                             sortable: true,
                         },
                         {
                             name: 'Content',
-                            selector: row => row.content,
+                            selector: row => row.content && row.content.replace( /(<([^>]+)>)/ig, '').substring(0,100),
                             sortable: true,
                         },
                         

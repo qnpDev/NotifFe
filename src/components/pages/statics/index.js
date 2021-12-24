@@ -74,22 +74,24 @@ const Static = () => {
     }, [navigate, setUserID])
 
     useEffect(()=> {
-        socket.on('notifNew', res => {
-            toast.info((
-                <>
-                    <span>Has new notify. </span>
-                    <Link 
-                        className='text-danger text-decoration-underline'
-                        to={'/notification/' + res._id}>
-                        Click here.
-                    </Link>
-                </>
-            ),{
-                position: 'top-center',
-                autoClose: '20000'
+        if(userID)
+            socket.on('notifNew', res => {
+                toast.info((
+                    <>
+                        <span>Has new notify. </span>
+                        <Link 
+                            className='text-danger text-decoration-underline'
+                            to={'/notification/' + res._id}>
+                            Click here.
+                        </Link>
+                    </>
+                ),{
+                    position: 'top-center',
+                    autoClose: '20000'
+                })
             })
-        })
-    }, [ socket ])
+        return () => socket.off('notifNew')
+    }, [ socket, userID ])
 
     if (userID)
     return (

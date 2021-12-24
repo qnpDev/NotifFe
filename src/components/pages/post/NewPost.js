@@ -212,7 +212,7 @@ const NewPost = ( { user, setPost, realtime }) => {
                     <div className='col-4'>
                         <button className='post-btn btn-transparent'>
                            <span className='text-warning'><CgSmileMouthOpen/></span>
-                            <span> Felling</span>
+                            <span> Feel</span>
                         </button>
                     </div>
                 </div>

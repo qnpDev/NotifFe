@@ -6,21 +6,24 @@ import { BiSend } from 'react-icons/bi'
 import TextareaAutosize from 'react-textarea-autosize';
 import { toast } from 'react-toastify';
 
-const PostNewComment = ({ data, addComment }, ref, ) => {
+const PostNewComment = ({ data }, ref, ) => {
     const commentRef = useRef()
     const { userID } = useContext(UserContext)
     const [ text, setText ] = useState()
+    const [ promise, setPromise ] = useState(false)
 
     const handleText = e => {
         setText(e.target.value)
     }
 
     const handleComment = () => {
+        setPromise(true)
         toast.promise(new Promise((resolve, reject) => {
             api.post('/post/newComment', {
                 postId: data,
                 text
             }).then(res=>{
+                setPromise(false)
                 if (res.data.success){
                     setText('')
                     resolve()
@@ -61,13 +64,14 @@ const PostNewComment = ({ data, addComment }, ref, ) => {
                                 ref={commentRef}
                                 maxRows='3'
                                 className='form-control input-mind bg-light'
-                                placeholder='Write comment'
+                                placeholder='Write a comment!'
                             />
                         </div>
                     </div>
                     <div className='col-1 m-0 p-0 d-flex align-items-center'>
                         <button 
                             onClick={handleComment}
+                            disabled={promise}
                             className='btn-transparent text-primary text-center'
                         >
                             <BiSend/>

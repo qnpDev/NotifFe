@@ -90,7 +90,7 @@ function Update({ close, data, setList, listDepartment }) {
                         ? res.data.data
                         : value
                 ))
-                toast.success('Add successful!')
+                toast.success('Update successful!')
                 close()
             }else{
                 toast.error(res.data.msg)
