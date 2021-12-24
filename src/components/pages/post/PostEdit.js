@@ -5,6 +5,7 @@ import api from '../../axios'
 import { 
     MdLiveTv,
     MdOutlinePhotoLibrary,
+    MdDelete,
 } from 'react-icons/md'
 import { CgSmileMouthOpen } from 'react-icons/cg'
 import { BiX, BiSend } from 'react-icons/bi'
@@ -20,7 +21,7 @@ function PostEdit ({show, handleEdit, data, setData}){
     const [imageNew, setImageNew] = useState(null)
     const [imageDel, setImageDel] = useState([])
     const [btnVideo, setBtnVideo] = useState(false)
-    const [inputYoutube, setInputYoutube] = useState('')
+    const [inputYoutube, setInputYoutube] = useState(data.video)
     const [linkYoutube, setLinkYoutube] = useState(data.video)
     const textRef = useRef()
     const fileImageRef = useRef()
@@ -47,6 +48,11 @@ function PostEdit ({show, handleEdit, data, setData}){
     const handleLinkYoutube = () => {
         setLinkYoutube(inputYoutube) 
         handleBtnVideo()
+    }
+    const handleLinkYoutubeDel = () => {
+        setLinkYoutube('')
+        setInputYoutube('')
+        inputYoutubeRef.current && inputYoutubeRef.current.focus()
     }
     const handleUpdate = () => {
         let formData = new FormData()
@@ -149,7 +155,7 @@ function PostEdit ({show, handleEdit, data, setData}){
                     ))
                     }
             </div>
-            {linkYoutube !== 'null' && (
+            {linkYoutube && (
                 <div className='mt-3 d-flex flex-wrap justify-content-center'>
                     <ReactPlayer 
                         url={linkYoutube}
@@ -199,7 +205,16 @@ function PostEdit ({show, handleEdit, data, setData}){
                             placeholder='Link video Youtube'
                         />
                     </div>
-                    <div className='col-1 m-0 p-0 d-flex align-items-center'>
+                    <div className='col-1 m-0 p-0 d-flex align-items-center justify-content-center'>
+                        {inputYoutube && (
+                            <button 
+                                onClick={handleLinkYoutubeDel}
+                                className='btn-transparent bg-white text-danger text-center'
+                            >
+                                <MdDelete/>
+                            </button>
+                        )}
+                        
                         <button 
                             onClick={handleLinkYoutube}
                             className='btn-transparent bg-white text-primary text-center'

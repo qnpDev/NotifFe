@@ -6,6 +6,7 @@ import api from '../../axios'
 import { 
     MdLiveTv,
     MdOutlinePhotoLibrary,
+    MdDelete,
 } from 'react-icons/md'
 import { CgSmileMouthOpen } from 'react-icons/cg'
 import { BiX, BiSend } from 'react-icons/bi'
@@ -20,7 +21,7 @@ const NewPost = ( { user, setPost, realtime }) => {
     const [image, setImage] = useState(null)
     const [btnVideo, setBtnVideo] = useState(false)
     const [inputYoutube, setInputYoutube] = useState('')
-    const [linkYoutube, setLinkYoutube] = useState(null)
+    const [linkYoutube, setLinkYoutube] = useState('')
     const textRef = useRef()
     const fileImageRef = useRef()
     const inputYoutubeRef = useRef()
@@ -46,6 +47,11 @@ const NewPost = ( { user, setPost, realtime }) => {
     const handleLinkYoutube = () => {
         setLinkYoutube(inputYoutube) 
         handleBtnVideo()
+    }
+    const handleLinkYoutubeDel = () => {
+        setLinkYoutube('')
+        setInputYoutube('')
+        inputYoutubeRef.current && inputYoutubeRef.current.focus()
     }
     const handleNewPost = async () => {
         setLoading(true)
@@ -227,7 +233,15 @@ const NewPost = ( { user, setPost, realtime }) => {
                                 placeholder='Link video Youtube'
                             />
                         </div>
-                        <div className='col-1 m-0 p-0 d-flex align-items-center'>
+                        <div className='col-1 m-0 p-0 d-flex align-items-center justify-content-center'>
+                            {inputYoutube && (
+                                <button 
+                                    onClick={handleLinkYoutubeDel}
+                                    className='btn-transparent bg-white text-danger text-center'
+                                >
+                                    <MdDelete/>
+                                </button>
+                            )}
                             <button 
                                 onClick={handleLinkYoutube}
                                 className='btn-transparent text-primary text-center'

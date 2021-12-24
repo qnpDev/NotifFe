@@ -225,7 +225,7 @@ const Post = ({ data, deletePost }) => {
                 </div>
                 
                     {dataPost.text && (
-                        (dataPost.img.length > 0 || dataPost.video !== 'null') ? (
+                        (dataPost.img.length > 0 || dataPost.video) ? (
                             <ShowMoreText 
                                 lines={3}
                                 more={(<span className='text fw-bold fst-italic'>Show more</span>)}
@@ -269,8 +269,7 @@ const Post = ({ data, deletePost }) => {
                     </div>
                 )}
 
-
-                {dataPost.video !== 'null' && (
+                {dataPost.video && (
                     <div className='mt-1'>
                         <div className='text-center mt-1'>
                             <ReactPlayer 
