@@ -5,7 +5,7 @@ import About from '../About';
 import Loading from '../loading';
 
 const Home = () => {
-    document.title = 'AdminPanel'
+    document.title = 'AdminPanel | qnp Notif'
     const [ data, setData ] = useState()
     const [ time, setTime ] = useState(new Date())
 

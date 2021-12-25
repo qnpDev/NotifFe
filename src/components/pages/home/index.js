@@ -11,7 +11,7 @@ import { IoNotificationsSharp } from 'react-icons/io5'
 import Loading from '../loading'
 
 function Home() {
-    document.title = 'Home'
+    document.title = 'Home ! qnp Notif'
 
     const navigate = useNavigate()
     const [ user, setUser ] = useState()
@@ -48,8 +48,8 @@ function Home() {
             }else{
                 setPost(prev => prev && res.data ? [...prev, ...res.data] : res.data)
             }
+            setSeeMore(true)
         })
-        setSeeMore(true)
     }, [ limitPost ])
 
     useEffect(() => {
@@ -105,7 +105,13 @@ function Home() {
                                 )}
 
                                 {!seeMore && (
-                                    <Loading />
+                                    <>
+                                        <div className='card btn-transparent'>
+                                            <div className='card-body text-center btn-transparent'>
+                                                <Loading />
+                                            </div>
+                                        </div>
+                                    </>
                                 )}
 
                                 {endPost && (
@@ -123,8 +129,6 @@ function Home() {
                     ) : (
                         <Loading />
                     )}
-                    
-                    
                 </div>
                 <div className='col-12 col-md-4 mb-3 position-relative home-notification-container'>
                     <div className='home-notification'>

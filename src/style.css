@@ -297,6 +297,11 @@ button, .text, .text:focus{
 .body-main{
     padding-left: calc(var(--nav-width) + 0.5rem);
 }
+@media screen and (max-width: 420px) {
+    .body-main{
+        padding-left: 0;
+    }
+}
 
 .height-100 {
     min-height: calc(100vh - (var(--header-height) + 2rem + 60px));

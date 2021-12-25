@@ -28,11 +28,10 @@ import About from './components/pages/About';
 import NotFound from './components/pages/NotFound';
 import ChangePass from './components/pages/ChangePass';
 
-
 function App() {
   return (
-    <IoProvider>
-      <UserProvider>
+    <UserProvider>
+      <IoProvider>
         <Router>
           <Routes>
             <Route path='/login' element={<Login/>}/>
@@ -61,8 +60,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
-      </UserProvider>
-    </IoProvider>
+      </IoProvider>
+    </UserProvider>
   );
 }
 

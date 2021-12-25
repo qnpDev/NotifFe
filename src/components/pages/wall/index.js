@@ -90,7 +90,6 @@ const Wall = () => {
         })
     }, [ id ])
     useEffect(()=>{
-
         setSeeMore(false)
         api.get('/user/post', {
             params: { id, limit }
@@ -104,8 +103,8 @@ const Wall = () => {
                     }
                 else
                     setErr(true)
+                setSeeMore(true)
         })
-        setSeeMore(true)
     }, [ limit, id ])
     
     useEffect(() => {
@@ -218,9 +217,14 @@ const Wall = () => {
                         <Post key={value._id} data={value} deletePost={handleDelete} />
                     )}
                     {!seeMore && (
-                        <Loading/>
+                        <>
+                            <div className='card btn-transparent'>
+                                <div className='card-body text-center btn-transparent'>
+                                    <Loading />
+                                </div>
+                            </div>
+                        </>
                     )}
-
                     {endPost && (
                         <div className='card'>
                             <div className='card-body text-center'>
@@ -232,8 +236,6 @@ const Wall = () => {
                     )}
                 </div>
             )}
-            
-
         </>
     );
     }else return (<Loading/>)

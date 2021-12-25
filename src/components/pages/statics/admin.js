@@ -74,7 +74,6 @@ const Static = () => {
             )
     return (
         <>
-
             <header className={(nav) ? 'body-pd' : ''}>
                 <div className={(nav) ? 'header body-pd' : 'header'}>
                     <div className='header_toggle'>

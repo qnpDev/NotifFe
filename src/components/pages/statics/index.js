@@ -93,21 +93,21 @@ const Static = () => {
         return () => socket.off('notifNew')
     }, [ socket, userID ])
 
-    if (userID)
     return (
         <>
-
             <header className={(nav) ? 'body-pd' : ''}>
                 <div className={(nav) ? 'header body-pd' : 'header'}>
                     <div className='header_toggle'>
                         <BiAlignLeft onClick={handleNav}/>
                     </div>
-                    <div className='header_img'>
-                        <img 
-                            src={userID.avatar}
-                            alt='avatar'
-                        />
-                    </div>
+                    {userID && (
+                        <div className='header_img'>
+                            <img 
+                                src={userID.avatar}
+                                alt='avatar'
+                            />
+                        </div>
+                    )}
                     <label className="theme-switch" htmlFor="checktheme">
                         <input 
                             checked={darkTheme} 
@@ -160,7 +160,7 @@ const Static = () => {
                                     <span className='nav_name'>Department List</span> 
                                 </NavLink>
 
-                                {userID.per > 0 && (
+                                {userID && userID.per > 0 && (
                                     <>
                                         <NavLink 
                                             to='/password'
@@ -181,7 +181,7 @@ const Static = () => {
                                     </>
                                 )}
 
-                                {userID.per >= 2 && (
+                                {userID && userID.per >= 2 && (
                                     <NavLink 
                                         to='/admin'
                                         activeclassname='active' 
@@ -231,7 +231,12 @@ const Static = () => {
 
             <div className={(nav) ? 'main body-main' : 'main'}>
                 <div className='height-100'>
-                    <Outlet />
+                    {userID ? (
+                        <Outlet />
+                    ) : (
+                        <Loading/>
+                    )}
+                    
                 </div>
             </div>
 
@@ -245,8 +250,6 @@ const Static = () => {
             </footer>
         </>
     );
-    else
-        return (<Loading/>)
 };
 
 export default Static;
