@@ -76,9 +76,9 @@ function PostEdit ({show, handleEdit, data, setData}){
             api.post('/post/edit', formData )
             .then(res => {
                 if (res.data.success){
-                    
                     resolve()
                 }else{
+                    toast.error(res.data.msg)
                     reject()
                 }
             })

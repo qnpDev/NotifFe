@@ -18,25 +18,36 @@ const PostNewComment = ({ data }, ref, ) => {
 
     const handleComment = () => {
         setPromise(true)
-        toast.promise(new Promise((resolve, reject) => {
-            api.post('/post/newComment', {
-                postId: data,
-                text
-            }).then(res=>{
-                setPromise(false)
-                if (res.data.success){
-                    setText('')
-                    resolve()
-                }else{
-                    reject()
-                }
-            })
-
-        }), {
-            pending: 'Wait...',
-            success: 'Successful!',
-            error: 'Somethings wrong!',
+        api.post('/post/newComment', {
+            postId: data,
+            text
+        }).then(res=>{
+            setPromise(false)
+            if (res.data.success){
+                setText('')
+            }else{
+                toast.error(res.data.msg)
+            }
         })
+        // toast.promise(new Promise((resolve, reject) => {
+        //     api.post('/post/newComment', {
+        //         postId: data,
+        //         text
+        //     }).then(res=>{
+        //         setPromise(false)
+        //         if (res.data.success){
+        //             setText('')
+        //             resolve()
+        //         }else{
+        //             reject()
+        //         }
+        //     })
+
+        // }), {
+        //     pending: 'Wait...',
+        //     success: 'Successful!',
+        //     error: 'Somethings wrong!',
+        // })
     }
     
     useImperativeHandle(ref, ()=> ({

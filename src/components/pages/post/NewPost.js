@@ -63,7 +63,6 @@ const NewPost = ( { user, setPost, realtime }) => {
         formData.append('text', text)
         formData.append('video', linkYoutube)
 
-
         toast.promise(new Promise((resolve, reject) => {
             api.post('/post/new', formData ).then(res=>{
                 if (res.data.success){
@@ -77,6 +76,7 @@ const NewPost = ( { user, setPost, realtime }) => {
                     setLoading(false)
                     resolve()
                 }else{
+                    toast.error(res.data.msg)
                     setLoading(false)
                     reject()
                 }
@@ -87,7 +87,6 @@ const NewPost = ( { user, setPost, realtime }) => {
             success: 'Post successful!',
             error: 'Post error!'
         })
-        
     }
 
     useEffect(() => (textRef.current && textRef.current.focus()) , [showModal])
