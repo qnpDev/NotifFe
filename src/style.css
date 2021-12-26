@@ -501,6 +501,14 @@ button, .text, .text:focus{
 .home-notification-hover:hover{
     background-color: var(--post-comment) ;
 }
+.szh-menu{
+    background-color: var(--input) !important;
+    color: var(--text-color) !important;
+    z-index: 1;
+}
+.szh-menu__item--hover{
+    background-color: var(--post-author);
+}
 /* End Home */
 
 /* Login */
@@ -640,12 +648,12 @@ button, .text, .text:focus{
     padding: 2px 1px;
      
     color: var(--text-color);
-    font-weight: bold;
+    /* font-weight: bold; */
     cursor: pointer;
     
     text-align: center;
-    font-size: 15px;
-    line-height: 10px;
+    /* font-size: 15px;
+    line-height: 10px; */
     border-radius: 50%;
     border: none;
 }

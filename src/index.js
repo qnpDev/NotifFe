@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@szhsin/react-menu/dist/index.css';
 import './style.css';
 
 import './index.css';

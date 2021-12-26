@@ -1,15 +1,16 @@
 import React, { useState, useCallback, useRef, useContext, useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
 import api from '../../axios'
 import ShowImages from '../../images';
-
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 // Icons
 import {
     MdGroups,
+    MdDeleteForever,
 } from 'react-icons/md'
 import { 
     BiDotsHorizontalRounded,
     BiLike,
+    BiEdit,
 } from 'react-icons/bi'
 import { BsDot } from 'react-icons/bs'
 import { GoComment } from 'react-icons/go'
@@ -204,21 +205,18 @@ const Post = ({ data, deletePost }) => {
                     </div>
                     <div className='col-1 m-0 p-0 post-dropdown'>
                         {(userID.per >= 2 || dataPost.author._id === userID.id) && (
-                            <Dropdown>
-                            <Dropdown.Toggle className='btn-nocaret btn-transparent'>
-                                <BiDotsHorizontalRounded/>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className='p-0 m-0 bg-light'>
-                                <Dropdown.Item
-                                    className='text'
-                                    onClick={handleEdit}
-                                >Edit</Dropdown.Item>
-                                <Dropdown.Item 
-                                    className='text'
-                                    onClick={handleDelete}
-                                >Delete</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                            <Menu 
+                                menuButton={<MenuButton 
+                                    className='p-0 m-0 btn-nocaret btn-transparent'
+                                    ><BiDotsHorizontalRounded/></MenuButton>}
+                            >
+                                <MenuItem onClick={handleEdit}>
+                                    <div><BiEdit/> Edit</div>
+                                </MenuItem>
+                                <MenuItem onClick={handleDelete}>
+                                    <div><MdDeleteForever/> Delete</div>
+                                </MenuItem>
+                            </Menu>
                         )}
                         
                     </div>
@@ -280,13 +278,11 @@ const Post = ({ data, deletePost }) => {
                         </div>
                     </div>
                     )}
-                <div className='row p-2'>
+                <div className='row p-2 px-3 text-small'>
                     <div className='col-6'>
-                        <span className='text-info'><BiLike/> </span>
-                        <span
-                            className='cursor-pointer'
+                        <span 
                             onClick={handleLikeDetail}
-                        >{dataLike.length}</span>
+                            className='cursor-pointer'><BiLike className='text-info'/> {dataLike.length}</span>
                     </div>
                     <div className='col-6'>
                         <span className='d-flex justify-content-end'>{comment.length} Comments</span>

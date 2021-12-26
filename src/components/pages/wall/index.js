@@ -198,7 +198,7 @@ const Wall = () => {
                 )}
                 
             </div>
-
+            <div className='px-3'>
             {(userID.id === id || !id) && (
                 <div className='mt-3'>
                     <NewPost user={user.user} setPost={setPost}/>
@@ -236,6 +236,7 @@ const Wall = () => {
                     )}
                 </div>
             )}
+            </div>
         </>
     );
     }else return (<Loading/>)

@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
-
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
 //Icons
+import {
+    MdDeleteForever,
+} from 'react-icons/md'
 import { 
     BiDotsHorizontalRounded,
     BiLike,
+    BiEdit,
 } from 'react-icons/bi'
 import { BsDot } from 'react-icons/bs'
 import { UserContext } from '../../contexts/UserContext';
@@ -161,21 +164,18 @@ function PostComment({ data, authorId, postId, deleteComment }){
                 </div>
                 {(userID.per >= 2 || data.author._id === userID.id) && (
                     <div className='post-dropdown comment-menu'>
-                        <Dropdown>
-                            <Dropdown.Toggle className='btn-nocaret btn-transparent'>
-                                <BiDotsHorizontalRounded/>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className='p-0 m-0 bg-light'>
-                                <Dropdown.Item
-                                    onClick={handleEdit}
-                                    className='text'
-                                >Edit</Dropdown.Item>
-                                <Dropdown.Item
-                                    onClick={handleDelete} 
-                                    className='text'
-                                >Delete</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Menu 
+                            menuButton={<MenuButton 
+                                className='p-0 m-0 btn-nocaret btn-transparent'
+                                ><BiDotsHorizontalRounded/></MenuButton>}
+                        >
+                            <MenuItem onClick={handleEdit}>
+                                    <div><BiEdit/> Edit</div>
+                                </MenuItem>
+                                <MenuItem onClick={handleDelete}>
+                                    <div><MdDeleteForever/> Delete</div>
+                                </MenuItem>
+                        </Menu>
                     </div>
                 )}
                 

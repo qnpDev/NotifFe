@@ -164,7 +164,10 @@ function Login() {
                 <div className='card login-main h-100 m-2'>
                     <div className='card-body p-5'>
                         <div className='text-center'>
-                            <h1>Login</h1>
+                            <h1 className='m-0'>Login</h1>
+                            <div className='text-small text-secondary'>
+                                qnp Notification
+                            </div>
                         </div>
                         <div className='row mt-5'>
                             <div className='col-6 login-border-right d-flex align-items-center'>

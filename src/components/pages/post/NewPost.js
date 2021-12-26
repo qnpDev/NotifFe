@@ -72,7 +72,7 @@ const NewPost = ( { user, setPost, realtime }) => {
                     setText('')
                     setImage(null)
                     setInputYoutube('')
-                    setLinkYoutube(null)
+                    setLinkYoutube('')
                     setLoading(false)
                     resolve()
                 }else{

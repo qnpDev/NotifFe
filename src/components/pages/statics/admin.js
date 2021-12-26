@@ -58,14 +58,18 @@ const Static = () => {
     useEffect(() => {
         if (!localStorage.getItem('token') || !localStorage.getItem('refreshToken')){
             navigate('/login', {replace: true})
-        }else
-        api.get('/user/id').then(res=> {
-            if(res.data.success)
-                setUserID({ id: res.data.id, avatar: res.data.avatar, per: res.data.per})
-            else
-                navigate('/login', {replace: true})
-        })
-    }, [navigate, setUserID])
+        }
+    }, [ navigate ])
+    useEffect(() => {
+        if (localStorage.getItem('token') && localStorage.getItem('refreshToken') && !userID){
+            api.get('/user/id').then(res=> {
+                if(res.data.success)
+                    setUserID({ id: res.data.id, avatar: res.data.avatar, per: res.data.per})
+                else
+                    navigate('/login', {replace: true})
+            })
+        }
+    }, [ navigate, setUserID, userID ])
 
     if (userID){
         if (userID.per < 2)
