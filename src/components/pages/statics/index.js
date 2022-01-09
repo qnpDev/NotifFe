@@ -10,21 +10,31 @@ import {
     BiLogOut,
     BiUser,
     BiListUl,
+    BiLogOutCircle,
 } from 'react-icons/bi'
 import { 
     IoNotificationsOutline,
     IoHomeOutline,
 } from 'react-icons/io5'
-import { AiOutlineNotification } from 'react-icons/ai'
+import { 
+    AiOutlineNotification,
+    AiOutlineUser,
+} from 'react-icons/ai'
 import { 
     SiPhpmyadmin, 
     SiDependabot,
     SiAndroidauto,
+    SiAboutdotme,
 } from 'react-icons/si'
+import { 
+    MdOutlineLightMode, 
+    MdOutlineDarkMode 
+} from 'react-icons/md'
 import { BsKey } from 'react-icons/bs'
 import api from '../../axios';
 import Loading from '../loading';
 import { IoContext } from '../../contexts/IoContext';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 const Static = () => {
 
     const [ nav, setNav ] = useState(false)
@@ -101,7 +111,7 @@ const Static = () => {
                     <div className='header_toggle'>
                         <BiAlignLeft onClick={handleNav}/>
                     </div>
-                    {userID && (
+                    {/* {userID && (
                         <div className='header_img'>
                             <img 
                                 src={userID.avatar}
@@ -118,7 +128,48 @@ const Static = () => {
                             className='checktheme' 
                         />
                         <div className="slider round"></div>
-                    </label>
+                    </label> */}
+
+                    <div className='d-flex justify-content-end'>
+                        {userID && (
+                            <Menu 
+                                menuButton={<div className='header_img cursor-pointer'><img 
+                                    src={userID.avatar}
+                                    alt='avatar'
+                                /></div>}
+                            >
+                                <MenuItem onClick={() => navigate('/wall')}>
+                                    <div><AiOutlineUser/> My Wall</div>
+                                </MenuItem>
+                                <MenuItem onClick={handleChangeTheme}>
+                                    <div>{darkTheme ? (
+                                        <>
+                                            <MdOutlineLightMode/>
+                                            <span> Light Mode</span>
+                                        </>
+                                        ) : (
+                                        <>
+                                            <MdOutlineDarkMode/>
+                                            <span> Dark Mode</span>
+                                        </>
+                                        )}
+                                    </div>
+                                </MenuItem>
+                                {userID.per > 0 && (
+                                    <MenuItem onClick={() => navigate('/password')}>
+                                        <div><BsKey/> Change Password</div>
+                                    </MenuItem>
+                                )}
+                                <MenuItem onClick={() => navigate('/about')}>
+                                    <div><SiAboutdotme/> About</div>
+                                </MenuItem>
+                                <MenuItem onClick={() => navigate('/logout')}>
+                                    <div><BiLogOutCircle/> Logout</div>
+                                </MenuItem>
+                            </Menu>
+                        )}
+                    </div>
+
                 </div>
                 <div className={(nav) ? 'l-navbar nav-show' : 'l-navbar'}>
                     <div className='nav'>
@@ -201,11 +252,6 @@ const Static = () => {
                                     <SiDependabot/>
                                     <span className='nav_name'>About Me</span> 
                                 </NavLink>
-
-                                <NavLink to='/logout' className='nav_link'>
-                                    <BiLogOut/>
-                                    <span className='nav_name'>SignOut</span> 
-                                </NavLink>
                                 
                             </div>
                         </div> 
@@ -243,7 +289,7 @@ const Static = () => {
 
             <footer className='text-center foot'>
                 <div className="text-center p-3 text-white cursor-default">
-                    <span>© 2021 Copyright: </span>
+                    <span>© 2022 Copyright: </span>
                     <Link to='/about' className="text-info font-weight-bold">
                         Nguyễn Phú Quí
                     </Link>

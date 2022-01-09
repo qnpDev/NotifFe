@@ -15,7 +15,7 @@ import {
     IoConstructOutline,
     IoHomeOutline,
 } from 'react-icons/io5'
-import { AiOutlineNotification } from 'react-icons/ai'
+import { AiOutlineNotification, AiOutlineRollback } from 'react-icons/ai'
 import { SiDependabot } from 'react-icons/si'
 import api from '../../axios';
 import Loading from '../loading';
@@ -151,14 +151,9 @@ const Static = () => {
                                 </NavLink>
 
                                 <NavLink to='/' className='nav_link'>
-                                    <BiLogOut/>
+                                    <AiOutlineRollback/>
                                     <span className='nav_name'>Go to Home</span> 
                                 </NavLink>
-
-                                {/* <NavLink to='/logout' className='nav_link'>
-                                    <BiLogOut/>
-                                    <span className='nav_name'>SignOut</span> 
-                                </NavLink> */}
                                 
                             </div>
                         </div> 
@@ -191,7 +186,7 @@ const Static = () => {
 
             <footer className='text-center foot'>
                 <div className="text-center p-3 text-white cursor-default">
-                    <span>© 2021 Copyright: </span>
+                    <span>© 2022 Copyright: </span>
                     <Link to='/admin/about' className="text-info font-weight-bold">
                         Nguyễn Phú Quí
                     </Link>
